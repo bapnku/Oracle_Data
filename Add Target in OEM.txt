@@ -1,0 +1,36 @@
+Need to promote the target to OEM:
+======================================
+su - monora
+
+cd /orasoft/scripts/sddc
+
+/orasoft/scripts/sddc/sddc_ora_target_promotion.ksh DNV22001 awsbyinval0001.jnj.com /u01/app/oracle/product/19.0.0.0 Dev 
+
+/orasoft/scripts/sddc/sddc_ora_target_promotion.ksh <DB NAME> <HOSTNAME> <ORACLE_HOME> <ENVIRONMENT>
+
+Note - This command will only work with Monora user. In Oracle user, it will show error like emcli is not running.
+       In monora user, this script will start emcli and promote the targets to OEM.
+	   
+	   
+	   
+To manuall add the targets in OEM:
+==================================
+su - monora 
+
+emcli modify_group -name=ITS-EP-ORA-ALL-DBA -add_targets=awsbyinval0001.jnj.com:host
+emcli modify_group -name=ITS-EP-ORA-ALL-DBA -add_targets=awsbyinval0001.jnj.com:3872:oracle_emd
+emcli modify_group -name=ITS-EP-ORA-ALL-DBA -add_targets=DNV22001:oracle_database
+emcli modify_group -name=ITS-EP-ORA-ALL-DBA -add_targets=LISTENER_DNV22001:oracle_listener
+
+
+
+cd /oem/agent13c/agent_13.5.0.0.0/bin
+
+emcli list_plugins_on_server
+
+
+OEM Application: TS-GDBS-OEM-PRD
+
+
+
+
